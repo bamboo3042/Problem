@@ -1,16 +1,4 @@
 function sendit(){
-
-    const userid = document.getElementById('userid');
-    const userpw = document.getElementById('userpw');
-    const userpw_re = document.getElementById('userpw_re');
-    const name = document.getElementById('name');
-    const hp = document.getElementById('hp');
-    const email = document.getElementById('email');
-    const hobby = document.getElementsByName('hobby');
-    const ssn1 = document.getElementById('ssn1');
-    const ssn2 = document.getElementById('ssn2');
-    const isssn = document.getElementById('isssn');
-
     
     // 정규표현식
     const expNameText = /[가-힣]+$/;
@@ -19,92 +7,86 @@ function sendit(){
     const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@\$!%\*#\?&\\])[\w@\$!%\*#\?&\\]+$/;
 
     // 아이디를 입력하지 않았을 경우
-    if(userid.value == ''){
+    if($("#userid").val() == ''){
         alert('아이디를 입력하세요');
-        userid.focus();
+        $("userid").focus();
         return false;
     }
 
     // 아이디가 4자 미만 또는 16자를 초과하는 경우
-    if(userid.value.length < 4 || userid.value.length > 16){
+    if($("#userid").val().length < 4 || $("#userid").val().length > 16){
         alert('아이디를 4자이상 16자 이하로 입력하세요');
-        userid.focus();
+        $("userid").focus();
         return false;
     }
 
     // 비밀번호를 입력하지 않은 경우
-    if(userpw.value == ''){
+    if($("#userpw").val() == ''){
         alert('비밀번호를 입력하세요');
-        userpw.focus();
+        $("#userpw").focus();
         return false;
     }
 
-    if(!expPassword.test(userpw.value)){
+    if(!expPassword.test($("#userpw").val())){
         alert('대소문자, 숫자, 특수문자를 포함하세요');
-        userpw.focus();
+        $("#userpw").focus();
         return false;
     }
 
     // 비밀번호와 비밀번호 확인의 같이 다른 경우
-    if(userpw.value != userpw_re.value){
+    if($("#userpw").val() != $("#userpw_re").val()){
         alert('비밀번호와 비밀번호 확인의 값이 다릅니다');
-        userpw_re.focus();
+        $("#userpw_re").focus();
         return false;
     }
 
-    if(!expNameText.test(name.value)){
+    if(!expNameText.test($("#name").val())){
         alert('이름 형식을 확인하세요\n한글만 입력 가능합니다');
-        name.focus();
+        $("#name").focus();
         return false;
     }
 
-    if(!expPhone.test(hp.value)){
+    if(!expHpText.test($("#hp").val())){
         alert('휴대폰번호 형식을 확인하세요');
-        hp.focus();
+        $("#hp").focus();
         return false;
     }
 
-    if(!expEmailText.test(email.value)){
+    if(!expEmailText.test($("#email").val())){
         alert('이메일 형식을 확인하세요');
-        email.focus();
+        $("#email").focus();
         return false;
     }
 
     let count = 0;
-    for(let i in hobby){
-        if(hobby[i].checked){
+    $('input:checkbox[name="hobby"]').each(function(){
+        if(this.checked){
             count++;
         }
-    }
+    });
 
     if(count == 0){
         alert('취미는 1개이상 선택하세요');
         return false;
     }
 
-    if(isssn.value == 'n'){
+    if($("#isssn").val() == 'n'){
         alert('주민등록번호 검증버튼을 눌러주세요');
         return false;
     }
 
-
     return true;
 }
 
-
-
 function ssnCheck(){
-    const ssn1 = document.getElementById('ssn1');
-    const ssn2 = document.getElementById('ssn2');
-    const isssn = document.getElementById('isssn');
     
-    if(ssn1.value == '' || ssn2.value == ''){
+    if($("#ssn1").val() == '' || $("#ssn2").val() == ''){
         alert('주민등록번호를 입력하세요');
-        ssn1.focus();
+        $("#ssn1").focus();
         return false;
     }
 
-    const ssn = ssn1.value + ssn2.value;    // 0010113068518
+    const ssn = $("#ssn1").val() + $("#ssn2").val();    // 0010113068518
 
     const s1 = Number(ssn.substr(0, 1)) * 2;
     const s2 = Number(ssn.substr(1, 1)) * 3;
@@ -127,20 +109,18 @@ function ssnCheck(){
 
     if(result == s13){
         alert('유효한 주민등록번호입니다');
-        isssn.value = 'y';
+        $("#isssn").val('y');
     }else{
         alert('유효하지 않은 주민등록번호입니다');
     }
 }
 
 function moveFocus(){
-    const ssn1 = document.getElementById('ssn1');
-    if(ssn1.value.length >= 6){
-        document.getElementById('ssn2').focus();
+    if($("#ssn1").val().length >= 6){
+        $("#ssn2").focus();
     }
 }
 
 function changeSsn(){
-    const isssn = document.getElementById('isssn');
-    isssn.value = 'n';
+    $("#isssn").val('n');
 }
