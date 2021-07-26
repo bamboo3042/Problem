@@ -38,7 +38,8 @@
 </head>
 <body>
 	<h2>글수정</h2>
-	<form method="post" action="edit_ok.jsp?b_idx=<%=b_idx%>">
+	<form method="post" action="edit_ok.jsp">
+		<input type="hidden" name="b_idx" value="<%=b_idx%>">
 		<p>작성자 : <%=session.getAttribute("userid")%></p>
 		<p><label>제목 : <input type="text" name="b_title" value="<%=b_title%>"></label></p>
 		<p>내용</p>
