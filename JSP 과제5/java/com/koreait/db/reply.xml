@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Reply">
+	<select id="count" parameterType="Long" resultType="int">
+		select count(re_idx) as re_total from tb_reply where re_boardidx=#{idx}
+	</select>
+	
+	<select id="add" parameterType="map">
+		insert into tb_reply (re_userid, re_userpassword, re_content, re_boardidx) values (#{re_userid}, #{re_userpassword}, #{re_content}, #{re_boardidx})
+	</select>
+	
+	<select id="list" parameterType="Long" resultType="map">
+		select re_idx, re_userid, re_content from tb_reply where re_boardidx=#{idx} order by re_idx desc
+	</select>
+</mapper>

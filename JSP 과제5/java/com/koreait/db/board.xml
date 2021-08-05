@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+  <update id="edit" parameterType="map">
+  	update tb_board set b_title=#{b_title}, b_content=#{b_content}, b_file=#{b_file} where b_idx=#{b_idx}
+  </update>
+
+  <select id="editview" parameterType="map" resultType="map">
+  	select b_idx, b_userid, b_username, b_title, b_content, b_hit, b_file from tb_board where b_idx=#{b_idx} and b_userpassword=#{b_userpassword}
+  </select>
+  
+  <update id="addhit" parameterType="Long">
+	update tb_board set b_hit = b_hit + 1 where b_idx=#{idx}
+  </update>
+  
+  <select id="view" parameterType="Long" resultType="map">
+	select b_idx, b_userid, b_username, b_title, b_content, b_hit, b_file from tb_board where b_idx=#{idx}
+  </select>
+  
+  <delete id="delete" parameterType="map">
+  	delete from tb_board where b_idx=? and b_userpassword=?
+  </delete>
+  
+  <insert id="create" parameterType="map">
+  	insert into tb_board(b_userid, b_userpassword, b_username, b_title, b_content, b_file) values (#{b_userid}, #{b_userpassword}, #{b_username}, #{b_title}, #{b_content}, #{b_file})
+  </insert>
+  
+  <select id="count" resultType="int">
+  	select count(b_idx) as total from tb_board
+  </select>
+  
+  <select id="list" parameterType="map" resultType="map">
+  	select b_idx, b_userid, b_username, b_title, b_hit, b_file from tb_board order by b_idx desc limit #{start}, #{pagePerCount}
+  </select>
+  
+</mapper>
