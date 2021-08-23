@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@dudgns_high?TNS_ADMIN=C:/Users/user/Desktop/얼라 과제/Wallet_dudgns
+    username: admin
+    password: secret
